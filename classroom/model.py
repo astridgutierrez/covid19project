@@ -1,32 +1,30 @@
-from pydantic import BaseModel
-from datetime import datetime
+from loguru import logger
 
 
-# Abbreviation - float
-# Level - integer
-# Description - string
-# days of week - string
-# start time - datetime
-# end time - datetime
-# Professor - string
-# Students - list of students
-
-class Classroom(BaseModel):
-    abbreviation: float
-    level: str
-    description: str
-    days_of_week: str
-    start_time: datetime
-    end_time: datetime
-    professor: str
-    students: list
+class Class:
+    def __init__(self, course_abbreviation):
+        logger.info(f"creating a new classroom {course_abbreviation}")
+        self.course_abbreviation: str = course_abbreviation
 
 
-print(Classroom.__fields__.keys())
+class Classroom(Class):
+    def __init__(self, course_abbreviation, level):
+        logger.debug("creating new classroom")
+        super().__init__(course_abbreviation)
+        logger.debug("finished calling super")
+        self.course_abbreviation = course_abbreviation
+        self.level = level
+
+    def classroom_dictionary(self):
+        return {"course_abbreviation": self.course_abbreviation, "level": self.level}
+
+
 if __name__ == "__main__":
     import json
 
-    s1 = Classroom(first_name="z", last_name="z")
+    s1 = Classroom(course_abbreviation="z", level="z")
     x = 1
     with open(s1.file, "w") as fp:
         json.dump(s1.json(), fp)
+
+
