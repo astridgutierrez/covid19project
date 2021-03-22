@@ -1,5 +1,7 @@
 from datetime import datetime, timedelta
 
+from loguru import logger
+
 
 class User:
     def __init__(self, username):
@@ -23,7 +25,9 @@ class Student(User):
         self.infection_date = infection_date
 
     def student_dictionary(self):
-        return {"student_id": self.student_id, "username": self.username}
+        print({"student_id": self.student_id, "username": self.username})
+        return 0
+
 
     @property
     def status(self):
@@ -35,13 +39,9 @@ class Student(User):
 
 
 if __name__ == "__main__":
-    from loguru import logger
+    import json
 
-    u = User("username1")
-    s = Student(1, "student1")
-    s2 = Student(2, "student2")
-    logger.info(u.to_upper())
-    logger.warning(s.to_lower())
-    logger.info(s.student_dictionary())
-    logger.error(s2.student_dictionary())
-    logger.debug(s.status)
+    s1 = Student(first_name="z", last_name="z")
+    x = 1
+    with open(s1.file, "w") as fp:
+        json.dump(s1.json(), fp)
